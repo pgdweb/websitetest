@@ -3,12 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="A modern photo gallery and company overview." />
-  <title>Company Name — Gallery</title>
+  <meta name="description" content="PGD Photography — portraits, events, and brand sessions with a clean, cinematic style." />
+
+  <!-- Social previews -->
+  <meta property="og:title" content="PGD Photography" />
+  <meta property="og:description" content="Timeless images. Real moments. Portraits • Events • Brand" />
+  <meta property="og:image" content="/images/hero.jpg" />
+  <meta property="og:type" content="website" />
+
+  <title>PGD Photography</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="/assets/styles.css" />
 </head>
@@ -16,17 +23,18 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header">
+  <header class="site-header" id="top">
     <div class="container header-inner">
-      <a class="brand" href="#">
-        <span class="brand-mark" aria-hidden="true">⬡</span>
-        <span class="brand-name">Company Name</span>
+      <a class="brand" href="#top" aria-label="PGD Photography home">
+        <span class="brand-mark" aria-hidden="true">PGD</span>
+        <span class="brand-name">PGD Photography</span>
       </a>
 
-      <nav class="nav">
-        <a href="#gallery">Gallery</a>
+      <nav class="nav" aria-label="Main navigation">
+        <a href="#work">Work</a>
+        <a href="#services">Services</a>
         <a href="#about">About</a>
-        <a href="#contact" class="btn btn-small">Contact</a>
+        <a href="#contact" class="btn btn-small">Book</a>
       </nav>
 
       <button class="icon-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
@@ -35,76 +43,88 @@
     </div>
 
     <div class="mobile-nav" id="mobileNav" hidden>
-      <a href="#gallery">Gallery</a>
+      <a href="#work">Work</a>
+      <a href="#services">Services</a>
       <a href="#about">About</a>
-      <a href="#contact">Contact</a>
+      <a href="#contact">Book</a>
     </div>
   </header>
 
   <main id="main">
+    <!-- HERO -->
     <section class="hero">
       <div class="container hero-inner">
         <div class="hero-text">
-          <p class="pill">Photo Gallery • Company Overview</p>
-          <h1>Show your work with a clean, modern gallery.</h1>
+          <p class="pill">Portraits • Events • Brand</p>
+
+          <h1>Timeless images. Real moments.</h1>
+
           <p class="subhead">
-            A fast, responsive site built for Azure Static Web Apps. Drop your images in <code>/images</code> and you’re live.
+            PGD Photography is a boutique studio specializing in clean, cinematic imagery.
+            Sessions that feel natural — never forced.
+          </p>
+
+          <p class="muted tiny">
+            Based in <strong>Your City, State</strong> • Available for travel
           </p>
 
           <div class="hero-actions">
-            <a class="btn" href="#gallery">View Gallery</a>
-            <a class="btn btn-ghost" href="#about">Learn More</a>
+            <a class="btn" href="#contact">Book a session</a>
+            <a class="btn btn-ghost" href="#work">View portfolio</a>
           </div>
 
           <div class="hero-stats">
             <div class="stat">
+              <div class="stat-num">Guided</div>
+              <div class="stat-label">Posing + direction included</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">Polished</div>
+              <div class="stat-label">Professional retouching</div>
+            </div>
+            <div class="stat">
               <div class="stat-num">Fast</div>
-              <div class="stat-label">No build step</div>
-            </div>
-            <div class="stat">
-              <div class="stat-num">Mobile</div>
-              <div class="stat-label">Responsive layout</div>
-            </div>
-            <div class="stat">
-              <div class="stat-num">Easy</div>
-              <div class="stat-label">Simple image folder</div>
+              <div class="stat-label">2–5 day turnaround</div>
             </div>
           </div>
         </div>
 
-        <div class="hero-card" aria-label="Featured image preview">
+        <div class="hero-card" aria-label="Featured work">
           <div class="hero-card-top">
             <span class="dot"></span><span class="dot"></span><span class="dot"></span>
           </div>
+
           <div class="hero-card-body">
             <img
               class="hero-preview"
               src="/images/hero.jpg"
-              alt="Featured project preview"
+              alt="Featured PGD Photography image"
               loading="lazy"
               onerror="this.closest('.hero-card-body').querySelector('.hero-fallback').hidden=false; this.hidden=true;"
             />
             <div class="hero-fallback" hidden>
-              <p><strong>Tip:</strong> Add an image at <code>/images/hero.jpg</code> for this preview.</p>
+              <p><strong>Tip:</strong> Add an image at <code>/images/hero.jpg</code> for this featured preview.</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="gallery">
+    <!-- WORK / PORTFOLIO -->
+    <section class="section" id="work">
       <div class="container">
         <div class="section-head">
           <div>
-            <h2>Gallery</h2>
-            <p class="muted">Filter by category. Click any photo to view full-screen.</p>
+            <h2>Portfolio</h2>
+            <p class="muted">Filter by session type. Click any photo to view full-screen.</p>
           </div>
 
-          <div class="filters" role="tablist" aria-label="Gallery filters">
-            <button class="chip active" data-filter="all" role="tab" aria-selected="true">All</button>
-            <button class="chip" data-filter="projects" role="tab" aria-selected="false">Projects</button>
-            <button class="chip" data-filter="team" role="tab" aria-selected="false">Team</button>
+          <div class="filters" role="tablist" aria-label="Portfolio filters">
+            <button class="chip active" data-filter="all" role="tab" aria-selected="true">All Work</button>
+            <button class="chip" data-filter="portraits" role="tab" aria-selected="false">Portraits</button>
             <button class="chip" data-filter="events" role="tab" aria-selected="false">Events</button>
+            <button class="chip" data-filter="brand" role="tab" aria-selected="false">Brand</button>
+            <button class="chip" data-filter="couples" role="tab" aria-selected="false">Couples</button>
           </div>
         </div>
 
@@ -112,44 +132,122 @@
       </div>
     </section>
 
-    <section class="section" id="about">
-      <div class="container two-col">
-        <div class="card">
-          <h2>What we do</h2>
-          <p>
-            Replace this with your company story: what you build, who you serve, and what makes you different.
-            Keep it simple and specific.
-          </p>
-
-          <ul class="checklist">
-            <li>High-quality work, documented clearly</li>
-            <li>Professional team & consistent delivery</li>
-            <li>Clean visuals, fast website performance</li>
-          </ul>
+    <!-- SERVICES -->
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <h2>Services</h2>
+            <p class="muted">Planning, direction, lighting, edits — you just show up.</p>
+          </div>
         </div>
 
-        <div class="card">
-          <h2>Why it matters</h2>
-          <p>
-            This section is perfect for your mission, values, or a short “how it works.”
-            You can also add testimonials later.
-          </p>
+        <div class="three-col">
+          <div class="card">
+            <h3>Portrait Sessions</h3>
+            <p class="muted">
+              Studio and on-location portraits focused on comfort, expression, and clean composition.
+            </p>
+            <ul class="checklist">
+              <li>Headshots + lifestyle</li>
+              <li>Wardrobe guidance</li>
+              <li>Retouching included</li>
+            </ul>
+          </div>
 
-          <div class="quote">
-            <p>“We make it easy to showcase results and build trust with customers.”</p>
-            <span class="muted">— Company Name</span>
+          <div class="card">
+            <h3>Events</h3>
+            <p class="muted">
+              Professional coverage that captures atmosphere and key moments without intrusion.
+            </p>
+            <ul class="checklist">
+              <li>Shot list planning</li>
+              <li>Reliable coverage</li>
+              <li>Fast delivery</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>Brand / Content</h3>
+            <p class="muted">
+              High-quality imagery designed for websites, social media, and marketing campaigns.
+            </p>
+            <ul class="checklist">
+              <li>Consistent style</li>
+              <li>Commercial-ready delivery</li>
+              <li>Usage options</li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- ABOUT + PACKAGES -->
+    <section class="section" id="about">
+      <div class="container two-col">
+        <div class="card">
+          <h2>About PGD Photography</h2>
+          <p>
+            PGD Photography was built on the idea that great photos shouldn’t feel stiff or overproduced.
+            Every session is approached with intention, patience, and attention to detail —
+            creating images that feel natural, confident, and timeless.
+          </p>
+
+          <div class="quote">
+            <p>“My goal is simple: make the process easy and deliver images you’re proud to share.”</p>
+            <span class="muted">— PGD Photography</span>
+          </div>
+
+          <div class="mini-badges">
+            <span class="badge">Studio</span>
+            <span class="badge">On-location</span>
+            <span class="badge">Travel</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Packages (example)</h2>
+          <p class="muted">Replace with your real pricing or remove this section.</p>
+
+          <div class="pricing">
+            <div class="price-row">
+              <div>
+                <strong>Mini Session</strong>
+                <div class="muted tiny">20 minutes • 8 edited photos</div>
+              </div>
+              <div class="price">$199</div>
+            </div>
+
+            <div class="price-row">
+              <div>
+                <strong>Standard</strong>
+                <div class="muted tiny">60 minutes • 25 edited photos</div>
+              </div>
+              <div class="price">$399</div>
+            </div>
+
+            <div class="price-row">
+              <div>
+                <strong>Brand Session</strong>
+                <div class="muted tiny">2 hours • 60+ edited photos</div>
+              </div>
+              <div class="price">$799</div>
+            </div>
+          </div>
+
+          <a class="btn btn-ghost" href="#contact" style="margin-top:1rem;">Ask about availability</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
     <section class="section" id="contact">
       <div class="container contact">
         <div class="contact-card">
-          <h2>Contact</h2>
+          <h2>Book a session</h2>
           <p class="muted">
-            Static site = no backend by default. If you want, we can wire this to an Azure Function later.
-            For now, it opens an email draft.
+            Tell me what you’re looking for and your preferred date(s). This opens an email draft for now.
+            (We can upgrade to a real form submission later.)
           </p>
 
           <form id="contactForm" class="form">
@@ -164,37 +262,48 @@
             </label>
 
             <label>
-              Message
-              <textarea name="message" rows="5" placeholder="How can we help?" required></textarea>
+              What are you booking?
+              <select name="type" required>
+                <option value="" selected disabled>Select a session type</option>
+                <option>Portraits</option>
+                <option>Events</option>
+                <option>Brand</option>
+                <option>Couples</option>
+              </select>
             </label>
 
-            <button class="btn" type="submit">Send Message</button>
+            <label>
+              Message
+              <textarea name="message" rows="5" placeholder="Dates, location, vibe, anything important…" required></textarea>
+            </label>
+
+            <button class="btn" type="submit">Send Request</button>
             <p class="muted tiny" id="contactHint"></p>
           </form>
         </div>
 
         <div class="contact-side card">
-          <h3>Company Name</h3>
+          <h3>PGD Photography</h3>
           <p class="muted">
-            Denver, CO (or wherever) <br />
-            Mon–Fri • 9–5
+            <span id="locationLine">Your City, State</span><br />
+            <span id="hoursLine">Mon–Fri • 9–5</span>
           </p>
 
           <div class="contact-links">
-            <a href="#" class="link" id="emailLink">email@company.com</a>
-            <a href="#" class="link">Instagram</a>
-            <a href="#" class="link">LinkedIn</a>
+            <a href="#" class="link" id="emailLink">hello@pgdphotography.com</a>
+            <a href="#" class="link" id="instagramLink">Instagram</a>
+            <a href="#" class="link" id="linkedinLink">LinkedIn</a>
           </div>
 
           <div class="mini-faq">
             <h4>FAQ</h4>
             <details>
-              <summary>Can we add password-protected galleries?</summary>
-              <p class="muted">Yep — we can do it with Azure Static Web Apps auth + roles.</p>
+              <summary>Do you help with posing?</summary>
+              <p class="muted">Yes — direction is included from start to finish, even if you’re camera-shy.</p>
             </details>
             <details>
-              <summary>Can we upload photos without GitHub?</summary>
-              <p class="muted">Yep — add a headless CMS or point the gallery to Blob Storage + a JSON feed.</p>
+              <summary>How fast do we get our photos?</summary>
+              <p class="muted">Typically 2–5 days depending on the session type and season.</p>
             </details>
           </div>
         </div>
@@ -204,7 +313,7 @@
 
   <footer class="footer">
     <div class="container footer-inner">
-      <p class="muted">© <span id="year"></span> Company Name. All rights reserved.</p>
+      <p class="muted">© <span id="year"></span> PGD Photography. All rights reserved.</p>
       <a class="muted" href="#top" id="backTop">Back to top ↑</a>
     </div>
   </footer>
