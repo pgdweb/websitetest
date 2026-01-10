@@ -1,3 +1,7 @@
+// ===============================
+// PGD Photography - Site Script
+// ===============================
+
 // ---- Mobile nav ----
 const menuBtn = document.getElementById("menuBtn");
 const mobileNav = document.getElementById("mobileNav");
@@ -15,21 +19,47 @@ mobileNav?.querySelectorAll("a").forEach(a => {
   });
 });
 
-// ---- Gallery data (EDIT THIS) ----
-// Put your images in /images and update this list.
-// tag must match a filter: "projects" | "team" | "events" (or add your own)
+// ---- Customize these ----
+const CONTACT_EMAIL = "hello@pgdphotography.com"; // change if needed
+const INSTAGRAM_URL = "#"; // e.g. "https://instagram.com/pgdphotography"
+const LINKEDIN_URL = "#";  // optional
+
+// Optional: set these text lines without editing HTML
+const LOCATION_LINE = "Your City, State";
+const HOURS_LINE = "Mon–Fri • 9–5";
+
+// ---- Gallery data ----
+// Add images to /images and update this list.
+// tag must match one of: portraits | events | brand | couples
 const GALLERY = [
-  { src: "/images/photo1.jpg", title: "Project Alpha", tag: "projects" },
-  { src: "/images/photo2.jpg", title: "On-site Work", tag: "projects" },
-  { src: "/images/photo3.jpg", title: "Team Moment", tag: "team" },
-  { src: "/images/photo4.jpg", title: "Company Event", tag: "events" },
-  { src: "/images/photo5.jpg", title: "Another Project", tag: "projects" },
-  { src: "/images/photo6.jpg", title: "Behind the Scenes", tag: "team" },
+  { src: "/images/p1.jpg", title: "Studio Portrait", tag: "portraits" },
+  { src: "/images/p2.jpg", title: "Natural Light Session", tag: "portraits" },
+  { src: "/images/p3.jpg", title: "Private Event Coverage", tag: "events" },
+  { src: "/images/p4.jpg", title: "Brand Campaign", tag: "brand" },
+  { src: "/images/p5.jpg", title: "Couples Session", tag: "couples" },
+  { src: "/images/p6.jpg", title: "On-Location Portrait", tag: "portraits" },
 ];
 
 const grid = document.getElementById("galleryGrid");
 const chips = document.querySelectorAll(".chip");
 
+// Contact UI
+const emailLink = document.getElementById("emailLink");
+const instagramLink = document.getElementById("instagramLink");
+const linkedinLink = document.getElementById("linkedinLink");
+const locationLine = document.getElementById("locationLine");
+const hoursLine = document.getElementById("hoursLine");
+
+if (emailLink) {
+  emailLink.textContent = CONTACT_EMAIL;
+  emailLink.href = `mailto:${CONTACT_EMAIL}`;
+}
+if (instagramLink) instagramLink.href = INSTAGRAM_URL;
+if (linkedinLink) linkedinLink.href = LINKEDIN_URL;
+if (locationLine) locationLine.textContent = LOCATION_LINE;
+if (hoursLine) hoursLine.textContent = HOURS_LINE;
+
+// ---- Filtering state ----
 let activeFilter = "all";
 let filtered = [...GALLERY];
 
@@ -38,10 +68,13 @@ function render(items) {
   if (!grid) return;
 
   if (!items.length) {
-    grid.innerHTML = `<div class="card" style="grid-column: span 12;">
-      <h3 style="margin:0 0 .35rem;">No photos yet</h3>
-      <p class="muted" style="margin:0;">Add images to <code>/images</code> and update <code>GALLERY</code> in <code>/assets/app.js</code>.</p>
-    </div>`;
+    grid.innerHTML = `
+      <div class="card" style="grid-column: span 12;">
+        <h3 style="margin:0 0 .35rem;">No photos yet</h3>
+        <p class="muted" style="margin:0;">
+          Add images to <code>/images</code> and update <code>GALLERY</code> in <code>/assets/app.js</code>.
+        </p>
+      </div>`;
     return;
   }
 
@@ -50,7 +83,7 @@ function render(items) {
       <img src="${p.src}" alt="${escapeHtml(p.title)}" loading="lazy" />
       <div class="gi-cap">
         <div class="title">${escapeHtml(p.title)}</div>
-        <div class="tag">${escapeHtml(p.tag)}</div>
+        <div class="tag">${escapeHtml(prettyTag(p.tag))}</div>
       </div>
     </article>
   `).join("");
@@ -58,9 +91,22 @@ function render(items) {
   grid.querySelectorAll(".gallery-item").forEach(el => {
     el.addEventListener("click", () => openLightbox(Number(el.dataset.idx)));
     el.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" || e.key === " ") openLightbox(Number(el.dataset.idx));
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openLightbox(Number(el.dataset.idx));
+      }
     });
   });
+}
+
+function prettyTag(tag) {
+  const map = {
+    portraits: "Portraits",
+    events: "Events",
+    brand: "Brand",
+    couples: "Couples",
+  };
+  return map[tag] || tag;
 }
 
 function escapeHtml(str) {
@@ -80,7 +126,7 @@ chips.forEach(btn => {
     activeFilter = btn.dataset.filter;
     filtered = activeFilter === "all" ? [...GALLERY] : GALLERY.filter(p => p.tag === activeFilter);
     render(filtered);
-    closeLightbox(); // if open, close on filter change
+    closeLightbox();
   });
 });
 
@@ -94,6 +140,8 @@ const lbNext = document.getElementById("lbNext");
 
 let lbIndex = 0;
 
+function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
+
 function openLightbox(index) {
   if (!lb || !lbImg || !lbCap) return;
   lbIndex = clamp(index, 0, filtered.length - 1);
@@ -101,7 +149,7 @@ function openLightbox(index) {
   const photo = filtered[lbIndex];
   lbImg.src = photo.src;
   lbImg.alt = photo.title;
-  lbCap.textContent = `${photo.title} • ${photo.tag}`;
+  lbCap.textContent = `${photo.title} • ${prettyTag(photo.tag)}`;
 
   lb.classList.add("open");
   lb.setAttribute("aria-hidden", "false");
@@ -114,8 +162,6 @@ function closeLightbox() {
   lb.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
 }
-
-function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
 
 function prev() { openLightbox(lbIndex - 1); }
 function next() { openLightbox(lbIndex + 1); }
@@ -135,27 +181,25 @@ window.addEventListener("keydown", (e) => {
   if (e.key === "ArrowRight") next();
 });
 
-// ---- Contact form: mailto fallback ----
+// ---- Contact form (mailto fallback) ----
 const contactForm = document.getElementById("contactForm");
 const contactHint = document.getElementById("contactHint");
-const emailLink = document.getElementById("emailLink");
-
-const CONTACT_EMAIL = "email@company.com"; // change me
-emailLink && (emailLink.textContent = CONTACT_EMAIL);
-emailLink && (emailLink.href = `mailto:${CONTACT_EMAIL}`);
 
 contactForm?.addEventListener("submit", (e) => {
   e.preventDefault();
   const form = new FormData(contactForm);
+
   const name = form.get("name");
   const email = form.get("email");
+  const type = form.get("type");
   const message = form.get("message");
 
-  const subject = encodeURIComponent(`Website contact from ${name}`);
-  const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+  const subject = encodeURIComponent(`Booking request (${type}) — ${name}`);
+  const body = encodeURIComponent(
+    `Name: ${name}\nEmail: ${email}\nSession Type: ${type}\n\nMessage:\n${message}\n`
+  );
 
-  const href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
-  window.location.href = href;
+  window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
 
   if (contactHint) {
     contactHint.textContent = "Opening your email client… If nothing happens, email us directly using the address on the right.";
